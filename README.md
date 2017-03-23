@@ -1,6 +1,6 @@
 # fcc-recipe-box
 
-Recipe Box made with React for FreeCodeCamp curriculum
+Recipe Box made with React for <a href='https://www.freecodecamp.com'>FreeCodeCamp</a> curriculum
 
 <strong>User stories:</strong>
 <ul>
