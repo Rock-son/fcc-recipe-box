@@ -2,6 +2,7 @@ import chinese from '../assets/chinese_food.jpg';
 import italian from '../assets/greek_food.jpg';
 import greek from '../assets/italian_food.jpg';
 import indian from '../assets/indian_food.jpg';
+import './style.scss';
 
 export default () => {
 

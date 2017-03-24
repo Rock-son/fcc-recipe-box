@@ -21,7 +21,7 @@ $addColor: rgb(128, 159, 255);
   -khtml-#{$prop}: $value;
   -moz-#{$prop}: $value;
   -ms-#{$prop}: $value;
-  $prop: $value;
+  #{$prop}: $value;
 }
 @mixin crossBrowser2($prop1, $prop2, $value) {
   -o-#{$prop1}-#{$prop2}: $value;

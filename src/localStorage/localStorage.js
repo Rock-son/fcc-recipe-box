@@ -10,6 +10,6 @@ export const DEFAULT_STORAGE_OBJ = {
   };
   // for adding and editing recipes
 export let RECIPE_INDEX = -1;
-export let CUISINE_TYPE = "";  
+export let CUISINE_TYPE = "";
 export let LOCALSTORAGE_DATA = null;
 export let OPENED_RECIPEBOX = "";
