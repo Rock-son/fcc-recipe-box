@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContainer from './appContainer';
 import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import {RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/localStorage';
 
@@ -74,7 +75,7 @@ export default class RecipeBox extends React.Component {
           if (result == true) {*/
               delete LOCALSTORAGE_DATA[this.props.className][this.props.index];           
               this._toggleIngredients(event, this._id);         
-              ReactDOM.render(<AppContainer/>, document.getElementById('main'));
+              ReactDOM.render(<AppContainer/>, document.getElementById('root'));
               try {
                   window.localStorage.setItem('recipes_rrmppw', JSON.stringify(LOCALSTORAGE_DATA));              
               } catch(e) {

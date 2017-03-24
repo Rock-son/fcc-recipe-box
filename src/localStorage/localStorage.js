@@ -13,3 +13,14 @@ export let RECIPE_INDEX = -1;
 export let CUISINE_TYPE = "";
 export let LOCALSTORAGE_DATA = null;
 export let OPENED_RECIPEBOX = "";
+
+export function initStorageData() {
+       LOCALSTORAGE_DATA = JSON.parse(window.localStorage.getItem('recipes_rrmppw')) || JSON.parse(JSON.stringify(DEFAULT_STORAGE_OBJ));
+}
+
+export function changeLocalStorageData(cuisineType, recipeIndex) {
+    
+
+}
+
+
