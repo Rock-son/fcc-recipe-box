@@ -1,0 +1,296 @@
+$delColor: rgb(255, 77, 77);
+$editColor: rgb(250,250,250);
+$addColor: rgb(128, 159, 255);
+
+@mixin not-user-selectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@mixin calc($prop0, $prop1) {
+  #{$prop0}: -moz-calc(#{$prop1});
+  #{$prop0}: -webkit-calc(#{$prop1});
+  #{$prop0}: calc(#{$prop1});
+}
+@mixin crossBrowser($prop, $value) {
+  -o-#{$prop}: $value;
+  -webkit-#{$prop}: $value;
+  -khtml-#{$prop}: $value;
+  -moz-#{$prop}: $value;
+  -ms-#{$prop}: $value;
+  $prop: $value;
+}
+@mixin crossBrowser2($prop1, $prop2, $value) {
+  -o-#{$prop1}-#{$prop2}: $value;
+  -webkit-#{$prop1}-#{$prop2}: $value;
+  -khtml-#{$prop1}-#{$prop2}: $value;
+  -moz-#{$prop1}-#{$prop2}: $value;
+  -ms-#{$prop1}-#{$prop2}: $value;
+  #{$prop1}-#{$prop2}: $value;
+}
+@mixin bkgrLinearGradient($prop1, $prop2, $prop3) {
+  background: -moz-linear-gradient(-45deg, #{$prop1} 0%, #{$prop2} 50%, #{$prop3} 100%);
+  background: -webkit-gradient(left top, right bottom, color-stop(0%, #{$prop1}), color-stop(50%, #{$prop2}), color-stop(100%, #{$prop3}));
+  background: -webkit-linear-gradient(-45deg, #{$prop1} 0%, #{$prop2} 50%, #{$prop3} 100%);
+  background: -o-linear-gradient(-45deg, #{$prop1} 0%, #{$prop2} 50%, #{$prop3} 100%);
+  background: -ms-linear-gradient(-45deg, #{$prop1} 0%, #{$prop2} 50%, #{$prop3} 100%);
+  background: linear-gradient(135deg, #{$prop1} 0%, #{$prop2} 50%, #{$prop3} 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=#{$prop1}, endColorstr=#{$prop3}, GradientType=1 );
+}
+
+html {
+  @include crossBrowser(transiton, all 1s ease);
+}
+body {
+    overflow-y: auto;
+}
+.btn-danger {
+    margin-left: 15px;
+}
+.btn-success {
+    font-weight: 700;
+    display: block;
+    float: left;
+    margin-left: 2%;
+    @include crossBrowser2(box, shadow, 0px 5px 10px green);
+    @include crossBrowser(transition, all 0.5s ease);
+}
+#ctrlSelect {
+    width: 20%;
+    padding-left: 0;
+}
+.container {
+    background-color: rgba(255,255,255,0);
+}
+.recipeContainer {
+    float: left;
+    padding-top: 25px;
+    padding-left: 25px; 
+    padding-bottom: 15px;
+    padding-right: 25px;
+    margin-top: -1px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: Colibri, Arial;
+    background-color: rgba(255,255,255,0);
+    @include crossBrowser2(border, radius, 0 5px 5px 5px);
+    & h1 {
+        margin: auto;
+        width: 400px;
+        color: rgb(186, 186, 186);
+        font-family: Colibri, Arial Sanserif;
+        font-size: 5em;
+        font-weight: 700;
+        text-shadow: -1px 0 white, 0 1px black, 1px 0 black, 0 -1px;        
+        text-shadow: -2px 0 white, 0 1px black, 2px 10px 15px black, 0 -1px white;
+        @include not-user-selectable;
+        @include crossBrowser(transition, transform 0.5s ease);
+    }
+    & #showModal {
+        margin-bottom: 15px;
+    }
+    & .recipeGroup {
+        position: relative;
+        padding: 0;
+        padding-top: 25px;
+        min-height: 700px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        //@include crossBrowser2(box, shadow, 1px 1px 25px green);
+        @include crossBrowser2(border, radius, 3000px / 2500px 15px);
+        @include crossBrowser(transition, all 0.5s ease);
+        &:before {
+            content: attr(data-bf);
+            margin-left: 20%;
+            margin-top: 7%;
+            color: gold;
+            font-weight: 700;
+            font-size: 22px;
+            white-space: pre-wrap;
+            text-shadow: -1px 0 white, 0 1px black, 1px 0 black, 2px 3px 10px white;
+        }
+        &.Indian {
+            opacity: 0.8;
+            //background: rgba(255,255,255,0) url("../assets/indian_food.jpg") repeat-y center center;
+        }
+        &.Chinese {
+            opacity: 0.8;
+            //background: rgba(255,255,255,0) url("../assets/chinese_food.jpg") repeat-y center center;
+        }
+        &.Italian {
+            opacity: 0.8;
+            //background: rgba(255,255,255,0) url("../assets/italian_food.jpg") repeat-y center center;
+        }
+        &.Greek {
+            opacity: 0.8;
+            //background: rgba(255,255,255,0) url("../assets/greek_food.jpg") repeat-y center center;
+        }
+    }
+    & .recipeWrapper {        
+        vertical-align: top;
+        padding: 20px 10px 0px 10px;
+        width: 100%;
+            &:first-child {
+                margin-top: 7%;
+            }
+            & .recipeName {
+                position: relative;
+                padding-left: 10px;
+                margin: auto;
+                width: 220px;
+                height: 40px;
+                font-size: 20px;
+                line-height: 40px;
+                font-weight: 700;
+                color: white;
+                cursor: pointer;
+                @include not-user-selectable;
+                @include crossBrowser2(border, radius, 5px 5px 0px 0px);
+                text-shadow: 0 1px black, 0 1px black, 1px 10px 15px grey;
+                @include crossBrowser2(box, shadow, 1px 5px 15px grey);
+                @include crossBrowser(transition, transform 0.4s ease);
+                &.collapsed {
+                    @include crossBrowser2(border, radius, 5px);
+                }
+                &:hover {
+                    position: relative;
+                    z-index: 100;
+                    @include crossBrowser(transform, translate(15px, 0px))
+                }
+                & .recipeToggle {
+                    float: right;
+                    color: black;
+                    font-size: 14px;
+                    font-weight: 300;
+                    cursor: pointer;
+                    padding: 0 5px 0 0;
+                    @include not-user-selectable;
+                }            
+                & .ingredientWrapper {
+                    position: relative;
+                    width: -moz-calc(100% + 10px); 
+                    width: -webkit-calc(100% + 10px); 
+                    width: calc(100% + 10px);                     
+                    margin-left: -10px;
+                    line-height: initial;
+                    color: #333;
+                    font-size: 14px;
+                    font-weight: 300;
+                    background-color: rgb(250, 250, 250);                   
+                    border: 1px solid rgb(255, 245, 255);
+                    border-top: none;
+                    visibility: visible;
+                    text-shadow: none;
+                    @include crossBrowser2(box, shadow, 0px 5px 10px grey);
+                    @include crossBrowser2(border, radius, 0 0 5px 5px);
+                    @include crossBrowser(transition, max-height 0.6s ease);
+                    @include crossBrowser(transition, visibility 0.3s ease);
+                    &.collapsed {
+                        visibility: hidden;
+                    }
+                }
+                & .ingredientContent {
+                    overflow: hidden;
+                    visibility: visible;
+                    max-height: 600px;
+                    @include crossBrowser2(border, radius, 0 0 5px 5px);
+                    @include crossBrowser(transition, all 0.4s ease);
+                    &.collapsed {
+                        visibility: hidden;
+                        max-height: 0;
+                    }
+                    & ._label {
+                        font-size: 16px;
+                        font-weight: 700;
+                        width: 100%;
+                        text-align: center;
+                        margin-top: 3%;
+                    }
+                    & hr {
+                        width: 80%;
+                        margin: 2% 0 2% 10%;
+                        border: 1px solid rgb(201,201,201);
+                    }
+                    & .ingredientList {
+                        font-size: 14px;
+                        font-weight: 300;
+                        margin-left: -7px;
+                        overflow-y: auto;
+                        & .ingredient {
+                            max-width: 90%;
+                            padding: 2px 0;
+                        }
+                    }
+                    & .btnToolbar {                
+                        padding: 15px;
+                    }
+               }
+          }
+     }
+}
+
+.Indian {           
+   @include bkgrLinearGradient(rgba(255, 153, 51,1), rgba(255,255,255,1), rgba(51, 153, 51,1));
+}
+.Chinese {
+  @include bkgrLinearGradient(rgba(255, 80, 80,1), rgba(255, 255, 0, 1), rgba(255, 80, 80,1));
+}
+.Italian {
+  @include bkgrLinearGradient(rgba(51, 153, 51,1), rgba(255,255,255,1), rgba(255, 51, 0,1));
+}
+.Greek {
+  @include bkgrLinearGradient(rgba(246,250,253,1), rgba(71,178,245,1), rgba(237,246,252,1));
+}
+
+@media screen and (min-width: 1560px) {
+    
+    .recipeContainer .recipeGroup {
+      &:before {
+          margin-left: 25%;
+      }
+   }
+}
+@media screen and (max-width: 592px) {
+  
+  .recipeContainer {
+      padding-left: 0;
+      padding-right: 0;    
+      & h1 {
+          font-size: 4em;
+          width: 4em;
+      }
+      & .recipeGroup {
+          width: 100%;
+          margin-left: 0;
+          &:before {
+              margin-left: 33%;
+          }
+      }
+      & .main {
+          padding-left: 0;
+          padding-right: 0;            
+      }
+   }  
+}
+
+@media screen and (max-width: 400px) {
+    
+  .recipeContainer {
+      & h1 {
+          font-size: 3em;
+          width: 3em;
+      }
+      &.recipeGroup {
+          &:before {
+              margin-left: 22%;
+              margin-top: 20%;
+          }
+      }
+  }
+  #ctrlSelect {
+     width: 30%;
+  }
+}

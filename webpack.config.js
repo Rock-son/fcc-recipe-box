@@ -1,25 +1,51 @@
 const webpack = require('webpack');
 const path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const VENDOR_LIBS = ['react', 'react-dom'];
+const VENDOR_LIBS = ['react', 'react-dom', 'react-bootstrap'];
 
 const config = {
     entry: {
-
+        build: path.join(__dirname, 'src', 'index.js'),
+        vendor: VENDOR_LIBS
     },
     output: {
-
+        path: path.join(__dirname, 'build'),
+        filename: '[name].js',
+        publicPath: 'build/'    // for 'url-loader' - it prepends output.publicPath' to the URL
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     module: {
         rules: [
-
+            {
+                test: /\.jsx?$/,
+                use: 'babel-loader'
+            },
+            {
+                test: /\.scss$/,
+                use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        //resolve-url-loader may be chained before sass-loader if necessary
+                        use: ['css-loader', 'sass-loader']
+                    })
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {size: 40000} // size in bytes
+                    },
+                    'webpack-image-loader'
+                ]
+            }
         ]
     },
     plugins: [
-        new ExtractTextPlugin.extract({filename: 'style.css'})
+        new ExtractTextPlugin({filename: 'style.css'})
     ]
-
 }
 
 module.exports = config;
