@@ -2,6 +2,7 @@ import React from 'react';
 import AppContainer from './appContainer';
 import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import {RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/localStorage';
+import {deleteLocalStorageData, setOpenedRecipeBox, setRecipeIndex, setCuisineType} from '../localStorage/localStorage';
 
 
 export default class RecipeBox extends React.Component {
@@ -52,28 +53,32 @@ export default class RecipeBox extends React.Component {
               OPENED_RECIPEBOX !== "" ? document.getElementById(OPENED_RECIPEBOX).parentNode.click() : "";
               this._toggleClass([ingredientContent,ingredientWrapper,recipeBox], 'collapsed');
               body.className = this.props.className;
-              
-              OPENED_RECIPEBOX = id;
+              setOpenedRecipeBox(id);
+              //OPENED_RECIPEBOX = id;
           } else {
               setTimeout(() => this._toggleClass(recipeBox, 'collapsed'), 400);
               this._toggleClass([ingredientContent, ingredientWrapper], 'collapsed');
-              OPENED_RECIPEBOX = "";
+              setOpenedRecipeBox("");
+              //OPENED_RECIPEBOX = "";
           }
           this.setState({sign: this.state.sign === '+' ? this.state.sign = '-' : this.state.sign = '+'});
       }
     
       _editRecipe(event) {        
             event.stopPropagation(null, );
-            RECIPE_INDEX = this.props.index;
-            CUISINE_TYPE = this.props.className;
-            document.getElementById('showModal').click();         
+            setRecipeIndex(this.props.index);
+            setCuisineType(this.props.className);
+            //RECIPE_INDEX = this.props.index;
+            //CUISINE_TYPE = this.props.className;
+            document.getElementById('showModal').click();
       }
     
       _removeRecipe(event) {
           event.stopPropagation();
           /*let result = confirm("Do you really want to delete this recipe?");
           if (result == true) {*/
-              delete LOCALSTORAGE_DATA[this.props.className][this.props.index];           
+              deleteLocalStorageData(this.props.className, this.props.index);
+              //delete LOCALSTORAGE_DATA[this.props.className][this.props.index];           
               this._toggleIngredients(event, this._id);         
               ReactDOM.render(<AppContainer/>, document.getElementById('root'));
               try {

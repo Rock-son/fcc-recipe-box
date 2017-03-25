@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, ButtonGroup, ButtonToolbar, FormControl, FormGroup, Modal, ControlLabel} from 'react-bootstrap';
 import {DEFAULT_STORAGE_OBJ, RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/localStorage';
+import {deleteLocalStorageData, changeLocalStorageData, setRecipeIndex, setCuisineType} from '../localStorage/localStorage';
 
 
 export default class ModalBox extends React.Component {
@@ -39,18 +40,21 @@ export default class ModalBox extends React.Component {
               Array.isArray(this.state.recipeIngredients) ? recipeIngredients =  this.state.recipeIngredients : recipeIngredients = this.state.recipeIngredients.split(',').map((item)=> item.trim());
               // if recipe changes cuisine, delete old object and add the recipe to new cuisine
               if (CUISINE_TYPE !== chosenCuisine) {
-                    delete LOCALSTORAGE_DATA[CUISINE_TYPE][RECIPE_INDEX];
-                    LOCALSTORAGE_DATA[chosenCuisine][lastIndex] = [this.state.recipeName, recipeIngredients];
+                    deleteLocalStorageData(CUISINE_TYPE, RECIPE_INDEX);
+                    changeLocalStorageData(chosenCuisine, lastIndex, [this.state.recipeName, recipeIngredients]);
+                    //LOCALSTORAGE_DATA[chosenCuisine][lastIndex] = [this.state.recipeName, recipeIngredients];
                     document.getElementById(OPENED_RECIPEBOX).click();
-              } else {                
-                    LOCALSTORAGE_DATA[CUISINE_TYPE][RECIPE_INDEX] = [this.state.recipeName, recipeIngredients];
+              } else {
+                    changeLocalStorageData(CUISINE_TYPE, RECIPE_INDEX, [this.state.recipeName, recipeIngredients]);
+                    //LOCALSTORAGE_DATA[CUISINE_TYPE][RECIPE_INDEX] = [this.state.recipeName, recipeIngredients];
               }              
           } else if (this.state.type === 'saveNew') {
             
                 let recipeName = document.getElementById('recipeName').value;
                 let recipeIngredients = document.getElementById('ingredients').value;                
                 recipeIngredients = recipeIngredients.split(',').map((item)=> item.trim());
-                LOCALSTORAGE_DATA[chosenCuisine][lastIndex] = [recipeName, recipeIngredients];
+                changeLocalStorageData(chosenCuisine, lastIndex, [recipeName, recipeIngredients]);
+                //LOCALSTORAGE_DATA[chosenCuisine][lastIndex] = [recipeName, recipeIngredients];
           }
           //enumerate new order of ingredients, RecipeBoxes and RecipeGroups
           ReactDOM.render(<AppContainer/>, document.getElementById('root')); 
@@ -94,8 +98,10 @@ export default class ModalBox extends React.Component {
       }
     
       _close() {
-          RECIPE_INDEX = -1;
-          CUISINE_TYPE = "";
+          setRecipeIndex(-1);
+          setCuisineType("");
+          //RECIPE_INDEX = -1;
+          //CUISINE_TYPE = "";
           this.setState({showModal: false});
       }
     
