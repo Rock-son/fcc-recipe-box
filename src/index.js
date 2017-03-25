@@ -4,11 +4,11 @@ import ReactDOM from 'react-dom';
 import imageViewer from './imageViewer';
 import AppContainer from './components/appContainer';
 import ModalBox from './components/modalBox';
-import updateStorageData from './localStorage/initStorage'
+import {initStorageData} from './localStorage/localStorage'
 
 
 document.addEventListener("DOMContentLoaded", function(event) {
-            updateStorageData();
+            initStorageData();
             ReactDOM.render(<ModalBox/>, document.getElementById('modal'));
             ReactDOM.render(<AppContainer/>, document.getElementById('root')); 
 });
