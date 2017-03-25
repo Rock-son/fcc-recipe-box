@@ -2,7 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const VENDOR_LIBS = ['react', 'react-dom', 'react-bootstrap'];
+const VENDOR_LIBS = ['react', 'react-dom'];
 
 const config = {
     entry: {
@@ -21,7 +21,8 @@ const config = {
         rules: [
             {
                 test: /\.jsx?$/,
-                use: 'babel-loader'
+                use: 'babel-loader',
+                exclude: /node_modules/
             },
             {
                 test: /\.scss$/,
@@ -38,7 +39,7 @@ const config = {
                         loader: 'url-loader',
                         options: {size: 40000} // size in bytes
                     },
-                    'webpack-image-loader'
+                    'image-webpack-loader'
                 ]
             }
         ]
