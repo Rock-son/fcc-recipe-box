@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import AppContainer from './appContainer';
 import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
 import {RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/localStorage';
@@ -41,44 +42,43 @@ export default class RecipeBox extends React.Component {
           }
       }
     
-      _toggleIngredients(event, id=this._id) {          
+      _toggleIngredients(event, id) {
+          if (typeof id === 'object') {id = this._id;}
           event.stopPropagation();
           let body = document.getElementById('body');
           let ingredientWrapper = document.getElementById(id);
-          let ingredientContent = ingredientWrapper.firstElementChild;
+          let ingredientChild = ingredientWrapper.firstElementChild;
           let recipeBox = ingredientWrapper.parentNode;
-        
+          
         // if recipeBox is not open, open it and close any other opened box
-          if (recipeBox.className.indexOf('collapsed') !== -1) {            
-              OPENED_RECIPEBOX !== "" ? document.getElementById(OPENED_RECIPEBOX).parentNode.click() : "";
-              this._toggleClass([ingredientContent,ingredientWrapper,recipeBox], 'collapsed');
+          if (recipeBox.className.indexOf('collapsed') !== -1) {
+              if (OPENED_RECIPEBOX !== "") {
+                  let ingredientWr = document.getElementById(OPENED_RECIPEBOX);
+                  let ingredientCh = ingredientWr.firstElementChild;
+                  let recipeB = ingredientWr.parentNode;
+                  this._toggleClass([ingredientCh, ingredientWr, recipeB], 'collapsed');
+               }
+              this._toggleClass([ingredientChild, ingredientWrapper, recipeBox], 'collapsed');
               body.className = this.props.className;
               setOpenedRecipeBox(id);
-              //OPENED_RECIPEBOX = id;
           } else {
               setTimeout(() => this._toggleClass(recipeBox, 'collapsed'), 400);
-              this._toggleClass([ingredientContent, ingredientWrapper], 'collapsed');
+              this._toggleClass([ingredientChild, ingredientWrapper], 'collapsed');
               setOpenedRecipeBox("");
-              //OPENED_RECIPEBOX = "";
           }
           this.setState({sign: this.state.sign === '+' ? this.state.sign = '-' : this.state.sign = '+'});
       }
     
       _editRecipe(event) {        
-            event.stopPropagation(null, );
+            event.stopPropagation();
             setRecipeIndex(this.props.index);
             setCuisineType(this.props.className);
-            //RECIPE_INDEX = this.props.index;
-            //CUISINE_TYPE = this.props.className;
             document.getElementById('showModal').click();
       }
     
       _removeRecipe(event) {
           event.stopPropagation();
-          /*let result = confirm("Do you really want to delete this recipe?");
-          if (result == true) {*/
-              deleteLocalStorageData(this.props.className, this.props.index);
-              //delete LOCALSTORAGE_DATA[this.props.className][this.props.index];           
+              deleteLocalStorageData(this.props.className, this.props.index);          
               this._toggleIngredients(event, this._id);         
               ReactDOM.render(<AppContainer/>, document.getElementById('root'));
               try {
@@ -93,7 +93,6 @@ export default class RecipeBox extends React.Component {
           let {children, name, className, st, ...props} = this.props;
           let index = 0;
           
-          // should be something like isSelected (http://stackoverflow.com/questions/28511207/react-js-onclick-event-handler)
           return (
               <div className='recipeWrapper'>
                   <div className={'recipeName collapsed ' + className} onClick={this._toggleIngredients} style={st}>{name}
