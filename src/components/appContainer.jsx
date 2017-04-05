@@ -1,6 +1,6 @@
 import React from 'react';
 import RecipeGroup from './recipeGroup';
-import {LOCALSTORAGE_DATA} from '../localStorage/localStorage';
+import {LOCALSTORAGE_DATA} from '../localStorage/initialData';
 import {Button, ButtonGroup, ButtonToolbar, FormControl, FormGroup, Modal, ControlLabel} from 'react-bootstrap';
 
 

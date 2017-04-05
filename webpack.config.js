@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const VENDOR_LIBS = ['react', 'react-dom'];
 
@@ -11,7 +12,7 @@ const config = {
     },
     output: {
         path: path.join(__dirname, 'build'),
-        filename: '[name].js',
+        filename: '[name].[chunkhash].js',
         publicPath: 'build/'    // for 'url-loader' - it prepends output.publicPath' to the URL
     },
     resolve: {
@@ -47,8 +48,13 @@ const config = {
     plugins: [
         new ExtractTextPlugin({filename: 'style.css'}),
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
+            names: ['vendor', 'manifest']
+        }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+            filename: '../index.html'
         })
+
     ]
 }
 

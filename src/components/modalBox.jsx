@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AppContainer from './appContainer';
 import {Button, ButtonGroup, ButtonToolbar, FormControl, FormGroup, Modal, ControlLabel} from 'react-bootstrap';
-import {DEFAULT_STORAGE_OBJ, RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/localStorage';
-import {deleteLocalStorageData, changeLocalStorageData, setRecipeIndex, setCuisineType, setOpenedRecipeBox} from '../localStorage/localStorage';
+import {DEFAULT_STORAGE_OBJ, RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/initialData';
+import {deleteLocalStorageData, changeLocalStorageData, setRecipeIndex, setCuisineType, setOpenedRecipeBox} from '../localStorage/initialData';
 
 
 export default class ModalBox extends React.Component {

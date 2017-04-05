@@ -1,7 +1,7 @@
 import React from 'react';
 import RecipeBox from './recipeBox';
 
-import {LOCALSTORAGE_DATA} from '../localStorage/localStorage';
+import {LOCALSTORAGE_DATA} from '../localStorage/initialData';
 
 
 export default class RecipeGroup extends React.Component {

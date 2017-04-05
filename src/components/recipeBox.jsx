@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AppContainer from './appContainer';
 import {Button, ButtonGroup, ButtonToolbar} from 'react-bootstrap';
-import {RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/localStorage';
-import {deleteLocalStorageData, setOpenedRecipeBox, setRecipeIndex, setCuisineType} from '../localStorage/localStorage';
+import {RECIPE_INDEX, CUISINE_TYPE, LOCALSTORAGE_DATA, OPENED_RECIPEBOX} from '../localStorage/initialData';
+import {deleteLocalStorageData, setOpenedRecipeBox, setRecipeIndex, setCuisineType} from '../localStorage/initialData';
 
 
 export default class RecipeBox extends React.Component {

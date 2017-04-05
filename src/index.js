@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import imageViewer from './imageViewer';
 import AppContainer from './components/appContainer';
 import ModalBox from './components/modalBox';
-import {initStorageData} from './localStorage/initialData.js'
+import {initStorageData} from './localStorage/initialData'
 
 
 document.addEventListener("DOMContentLoaded", function(event) {

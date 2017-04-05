@@ -2288,7 +2288,7 @@ var _recipeGroup = __webpack_require__(202);
 
 var _recipeGroup2 = _interopRequireDefault(_recipeGroup);
 
-var _localStorage = __webpack_require__(50);
+var _initialData = __webpack_require__(50);
 
 var _reactBootstrap = __webpack_require__(106);
 
@@ -2316,8 +2316,8 @@ var AppContainer = function (_React$Component) {
         key: '_getData',
         value: function _getData() {
             var groupArr = [];
-            for (var key in _localStorage.LOCALSTORAGE_DATA) {
-                if (!_localStorage.LOCALSTORAGE_DATA.hasOwnProperty(key)) continue;
+            for (var key in _initialData.LOCALSTORAGE_DATA) {
+                if (!_initialData.LOCALSTORAGE_DATA.hasOwnProperty(key)) continue;
                 groupArr.push(key);
             }
             return groupArr;
@@ -7565,7 +7565,7 @@ var _appContainer2 = _interopRequireDefault(_appContainer);
 
 var _reactBootstrap = __webpack_require__(106);
 
-var _localStorage = __webpack_require__(50);
+var _initialData = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7594,7 +7594,7 @@ var ModalBox = function (_React$Component) {
         //if localStorage is available and it is a first app start, save default recipes in localStorage
         if (_this._storageAvailable('localStorage')) {
             if (!window.localStorage.getItem('recipes_rrmppw')) {
-                _this._saveToLocalStorage('recipes_rrmppw', JSON.stringify(_localStorage.DEFAULT_STORAGE_OBJ));
+                _this._saveToLocalStorage('recipes_rrmppw', JSON.stringify(_initialData.DEFAULT_STORAGE_OBJ));
             }
         } else {
             alert('You need a modern browser for properly viewing this application!');
@@ -7611,31 +7611,31 @@ var ModalBox = function (_React$Component) {
                 alert('Please select Cuisine Type!');
                 return;
             }
-            var lastIndex = Object.keys(_localStorage.LOCALSTORAGE_DATA[chosenCuisine]).slice(-1);
+            var lastIndex = Object.keys(_initialData.LOCALSTORAGE_DATA[chosenCuisine]).slice(-1);
             lastIndex++;
             if (this.state.type === 'edit') {
                 var recipeIngredients = Array.isArray(this.state.recipeIngredients) ? this.state.recipeIngredients : this.state.recipeIngredients.split(',').map(function (item) {
                     return item.trim();
                 });
                 // if recipe changes cuisine, delete old object and add the recipe to new cuisine
-                if (_localStorage.CUISINE_TYPE !== chosenCuisine) {
-                    (0, _localStorage.deleteLocalStorageData)(_localStorage.CUISINE_TYPE, _localStorage.RECIPE_INDEX);
-                    (0, _localStorage.changeLocalStorageData)(chosenCuisine, lastIndex, [this.state.recipeName, recipeIngredients]);
-                    (0, _localStorage.setOpenedRecipeBox)("");
+                if (_initialData.CUISINE_TYPE !== chosenCuisine) {
+                    (0, _initialData.deleteLocalStorageData)(_initialData.CUISINE_TYPE, _initialData.RECIPE_INDEX);
+                    (0, _initialData.changeLocalStorageData)(chosenCuisine, lastIndex, [this.state.recipeName, recipeIngredients]);
+                    (0, _initialData.setOpenedRecipeBox)("");
                 } else {
-                    (0, _localStorage.changeLocalStorageData)(_localStorage.CUISINE_TYPE, _localStorage.RECIPE_INDEX, [this.state.recipeName, recipeIngredients]);
+                    (0, _initialData.changeLocalStorageData)(_initialData.CUISINE_TYPE, _initialData.RECIPE_INDEX, [this.state.recipeName, recipeIngredients]);
                 }
             } else if (this.state.type === 'saveNew') {
                 var recipeName = document.getElementById('recipeName').value;
                 var _recipeIngredients = document.getElementById('ingredients').value.split(',').map(function (item) {
                     return item.trim();
                 });
-                (0, _localStorage.changeLocalStorageData)(chosenCuisine, lastIndex, [recipeName, _recipeIngredients]);
+                (0, _initialData.changeLocalStorageData)(chosenCuisine, lastIndex, [recipeName, _recipeIngredients]);
             }
             //enumerate new order of ingredients, RecipeBoxes and RecipeGroups
             _reactDom2.default.render(_react2.default.createElement(_appContainer2.default, null), document.getElementById('root'));
             // save data to localStorage and close Modal
-            this._saveToLocalStorage('recipes_rrmppw', JSON.stringify(_localStorage.LOCALSTORAGE_DATA));
+            this._saveToLocalStorage('recipes_rrmppw', JSON.stringify(_initialData.LOCALSTORAGE_DATA));
             this._close();
         }
     }, {
@@ -7664,12 +7664,12 @@ var ModalBox = function (_React$Component) {
     }, {
         key: '_open',
         value: function _open() {
-            if (_localStorage.RECIPE_INDEX > -1) {
+            if (_initialData.RECIPE_INDEX > -1) {
                 this.setState({ showModal: true,
                     type: 'edit',
-                    option: _localStorage.CUISINE_TYPE,
-                    recipeName: _localStorage.LOCALSTORAGE_DATA[_localStorage.CUISINE_TYPE][_localStorage.RECIPE_INDEX][0],
-                    recipeIngredients: _localStorage.LOCALSTORAGE_DATA[_localStorage.CUISINE_TYPE][_localStorage.RECIPE_INDEX][1] });
+                    option: _initialData.CUISINE_TYPE,
+                    recipeName: _initialData.LOCALSTORAGE_DATA[_initialData.CUISINE_TYPE][_initialData.RECIPE_INDEX][0],
+                    recipeIngredients: _initialData.LOCALSTORAGE_DATA[_initialData.CUISINE_TYPE][_initialData.RECIPE_INDEX][1] });
             } else {
                 this.setState({ showModal: true, type: 'saveNew', option: "Select", recipeName: "", recipeIngredients: "" });
             }
@@ -7677,8 +7677,8 @@ var ModalBox = function (_React$Component) {
     }, {
         key: '_close',
         value: function _close() {
-            (0, _localStorage.setRecipeIndex)(-1);
-            (0, _localStorage.setCuisineType)("");
+            (0, _initialData.setRecipeIndex)(-1);
+            (0, _initialData.setCuisineType)("");
             //RECIPE_INDEX = -1;
             //CUISINE_TYPE = "";
             this.setState({ showModal: false });
@@ -7714,7 +7714,7 @@ var ModalBox = function (_React$Component) {
             var title = "",
                 saveBtnText = "",
                 type = "";
-            _localStorage.RECIPE_INDEX > -1 ? (title = 'Edit Recipe', saveBtnText = 'Save Changes') : (title = 'Add a Recipe', saveBtnText = 'Save Recipe');
+            _initialData.RECIPE_INDEX > -1 ? (title = 'Edit Recipe', saveBtnText = 'Save Changes') : (title = 'Add a Recipe', saveBtnText = 'Save Recipe');
 
             return _react2.default.createElement(
                 'div',
@@ -7897,7 +7897,7 @@ var _appContainer2 = _interopRequireDefault(_appContainer);
 
 var _reactBootstrap = __webpack_require__(106);
 
-var _localStorage = __webpack_require__(50);
+var _initialData = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7984,21 +7984,21 @@ var RecipeBox = function (_React$Component) {
 
             // if recipeBox is not open, open it and close any other opened box
             if (recipeBox.className.indexOf('collapsed') !== -1) {
-                if (_localStorage.OPENED_RECIPEBOX !== "") {
-                    var ingredientWr = document.getElementById(_localStorage.OPENED_RECIPEBOX);
+                if (_initialData.OPENED_RECIPEBOX !== "") {
+                    var ingredientWr = document.getElementById(_initialData.OPENED_RECIPEBOX);
                     var ingredientCh = ingredientWr.firstElementChild;
                     var recipeB = ingredientWr.parentNode;
                     this._toggleClass([ingredientCh, ingredientWr, recipeB], 'collapsed');
                 }
                 this._toggleClass([ingredientChild, ingredientWrapper, recipeBox], 'collapsed');
                 body.className = this.props.className;
-                (0, _localStorage.setOpenedRecipeBox)(id);
+                (0, _initialData.setOpenedRecipeBox)(id);
             } else {
                 setTimeout(function () {
                     return _this2._toggleClass(recipeBox, 'collapsed');
                 }, 400);
                 this._toggleClass([ingredientChild, ingredientWrapper], 'collapsed');
-                (0, _localStorage.setOpenedRecipeBox)("");
+                (0, _initialData.setOpenedRecipeBox)("");
             }
             this.setState({ sign: this.state.sign === '+' ? this.state.sign = '-' : this.state.sign = '+' });
         }
@@ -8006,19 +8006,19 @@ var RecipeBox = function (_React$Component) {
         key: '_editRecipe',
         value: function _editRecipe(event) {
             event.stopPropagation();
-            (0, _localStorage.setRecipeIndex)(this.props.index);
-            (0, _localStorage.setCuisineType)(this.props.className);
+            (0, _initialData.setRecipeIndex)(this.props.index);
+            (0, _initialData.setCuisineType)(this.props.className);
             document.getElementById('showModal').click();
         }
     }, {
         key: '_removeRecipe',
         value: function _removeRecipe(event) {
             event.stopPropagation();
-            (0, _localStorage.deleteLocalStorageData)(this.props.className, this.props.index);
+            (0, _initialData.deleteLocalStorageData)(this.props.className, this.props.index);
             this._toggleIngredients(event, this._id);
             _reactDom2.default.render(_react2.default.createElement(_appContainer2.default, null), document.getElementById('root'));
             try {
-                window.localStorage.setItem('recipes_rrmppw', JSON.stringify(_localStorage.LOCALSTORAGE_DATA));
+                window.localStorage.setItem('recipes_rrmppw', JSON.stringify(_initialData.LOCALSTORAGE_DATA));
             } catch (e) {
                 throw e.message;
             }
@@ -8126,7 +8126,7 @@ var _recipeBox = __webpack_require__(201);
 
 var _recipeBox2 = _interopRequireDefault(_recipeBox);
 
-var _localStorage = __webpack_require__(50);
+var _initialData = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8154,7 +8154,7 @@ var RecipeGroup = function (_React$Component) {
             var group = this.props.group;
 
             var dataArr = [];
-            var obj = _localStorage.LOCALSTORAGE_DATA[group];
+            var obj = _initialData.LOCALSTORAGE_DATA[group];
             for (var key in obj) {
                 if (!obj.hasOwnProperty(key)) continue;
                 dataArr.push([key, obj[key]]); // obj[key] -> array: [..,[..]]
@@ -8212,12 +8212,12 @@ var _modalBox = __webpack_require__(199);
 
 var _modalBox2 = _interopRequireDefault(_modalBox);
 
-var _localStorage = __webpack_require__(50);
+var _initialData = __webpack_require__(50);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener("DOMContentLoaded", function (event) {
-            (0, _localStorage.initStorageData)();
+            (0, _initialData.initStorageData)();
             _reactDom2.default.render(_react2.default.createElement(_modalBox2.default, null), document.getElementById('modal'));
             _reactDom2.default.render(_react2.default.createElement(_appContainer2.default, null), document.getElementById('root'));
 });
