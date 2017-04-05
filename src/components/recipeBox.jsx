@@ -16,7 +16,7 @@ export default class RecipeBox extends React.Component {
           this._removeRecipe = this._removeRecipe.bind(this);
           this._editRecipe = this._editRecipe.bind(this);
       }
-    
+
       _toggleClass(elem, className) {
         
           if (Array.isArray(elem)) {              
